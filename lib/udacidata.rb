@@ -13,7 +13,12 @@ class Udacidata
   end
 
   def self.all
+  	all_products = []
   	data_path = "../data/data.csv"
-  	CSV.read(data_path)
+  	CSV.foreach(data_path, headers: true) do |row|
+  		item = Product.new(brand: row["brand"], name: row["product"], price: row["price"])
+  		all_products.push(item)
+  	end
+  	return all_products
   end
 end
