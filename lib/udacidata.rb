@@ -11,4 +11,9 @@ class Udacidata
     end
     return new_item
   end
+
+  def self.all
+  	data_path = "../data/data.csv"
+  	CSV.read(data_path)
+  end
 end
