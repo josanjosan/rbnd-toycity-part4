@@ -9,5 +9,6 @@ class Udacidata
     CSV.open(data_path, "ab") do |csv|
       csv << [new_item.id, new_item.brand, new_item.name, new_item.price]
     end
+    return new_item
   end
 end
