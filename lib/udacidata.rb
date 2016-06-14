@@ -3,10 +3,11 @@ require_relative 'errors'
 require 'csv'
 
 class Udacidata
+  @@data_path = "../data/data.csv"
+
   def self.create(opts = {})
-  	data_path = "../data/data.csv"
-    new_item = Product.new(opts = {})
-    CSV.open(data_path, "ab") do |csv|
+  	new_item = Product.new(opts = {})
+    CSV.open(@@data_path, "ab") do |csv|
       csv << [new_item.id, new_item.brand, new_item.name, new_item.price]
     end
     return new_item
@@ -14,8 +15,7 @@ class Udacidata
 
   def self.all
   	all_products = []
-  	data_path = "../data/data.csv"
-  	CSV.foreach(data_path, headers: true) do |row|
+  	CSV.foreach(@@data_path, headers: true) do |row|
   		item = Product.new(brand: row["brand"], name: row["product"], price: row["price"])
   		all_products.push(item)
   	end
