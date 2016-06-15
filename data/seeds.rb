@@ -5,9 +5,7 @@ require 'faker'
 
 def db_seed
   data_path = "../data/data.csv"# Your code goes here!
-    CSV.open(data_path, "ab") do |csv|
-      100.times do |i|
-        csv << [i, Faker::Commerce.department, Faker::Commerce.product_name, Faker::Commerce.price]
-    end
+  100.times do
+      Product.create(brand: Faker::Commerce.department, name: Faker::Commerce.product_name, price: Faker::Commerce.price)
   end
 end

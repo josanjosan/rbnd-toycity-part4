@@ -4,9 +4,11 @@ require 'csv'
 
 class Udacidata
   @@data_path = "../data/data.csv"
+  @@all = []
 
   def self.create(opts = {})
-  	new_item = Product.new(opts = {})
+  	new_item = Product.new(brand: opts[:brand], name: opts[:name], price: opts[:price])
+  	@@all.push(new_item)
     CSV.open(@@data_path, "ab") do |csv|
       csv << [new_item.id, new_item.brand, new_item.name, new_item.price]
     end
@@ -14,11 +16,11 @@ class Udacidata
   end
 
   def self.all
-  	all_products = []
-  	CSV.foreach(@@data_path, headers: true) do |row|
-  		item = Product.new(brand: row["brand"], name: row["product"], price: row["price"])
-  		all_products.push(item)
-  	end
-  	return all_products
+   	@@all
+  end
+
+  def self.first(n = 1)
+    first_n = all.first(n)
+ 	n = 1 ? first_n.first : first_n
   end
 end
