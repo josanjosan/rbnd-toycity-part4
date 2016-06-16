@@ -20,7 +20,6 @@ class Udacidata
   end
 
   def self.first(n = 1)
-    first_n = all.first(n)
- 	n = 1 ? first_n.first : first_n
+    n == 1 ? @@all.first : @@all.first(n)
   end
 end
