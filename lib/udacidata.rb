@@ -30,4 +30,9 @@ class Udacidata
   def self.last(n = 1)
     n == 1 ? all.last : all.last(n)
   end
+
+  def self.find(id)
+    found = all.select { |product| product.id == id}
+    return found.first
+  end
 end
