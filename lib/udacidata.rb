@@ -26,4 +26,8 @@ class Udacidata
   def self.first(n = 1)
     n == 1 ? all.first : all.first(n)
   end
+
+  def self.last(n = 1)
+    n == 1 ? all.last : all.last(n)
+  end
 end
