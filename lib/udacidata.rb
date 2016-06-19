@@ -35,4 +35,14 @@ class Udacidata
     found = all.select { |product| product.id == id}
     return found.first
   end
+
+  def self.destroy(id)
+    destroyed_product = self.find(id)
+    data = CSV.table(@@data_path, headers: false)
+    data.delete_if { |row| row[0] == destroyed_product.id}
+    CSV.open(@@data_path, "wb") do |csv|
+      data.each { |row| csv << row }
+    end
+    return destroyed_product
+  end
 end
