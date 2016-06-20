@@ -59,5 +59,9 @@ class Udacidata
     end
   end
 
+  def self.where(opts = {})
+    array_of_products = all.select { |product| product.brand == opts[:brand]}
+  end
+
   create_find_by_methods
 end
