@@ -31,4 +31,21 @@ module Analyzable
   	end
   	return by_name_hash
   end
+ 
+  def print_report(array_of_products)
+  	report = ["Inventory by brand"]
+  	"Average price: $#{average_price(array_of_products)}"
+  end
+
+  #def generate_brands(array_of_products)
+  #	brands = []
+  #	array_of_products.each { |product| brands.push(product.brand) }
+  #	return brands.uniq!
+  #end
+
+  #def generate_names(array_of_products)
+  #	names = []
+  #	array_of_products.each { |product| names.push(product.name) }
+  #	return names.uniq!
+  #end
 end
