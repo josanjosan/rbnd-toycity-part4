@@ -60,7 +60,9 @@ class Udacidata
   end
 
   def self.where(opts = {})
-    array_of_products = all.select { |product| product.brand == opts[:brand]}
+    array_of_products = all.select { |product| product.brand == opts[:brand]} if opts[:brand]
+    array_of_products = all.select { |product| product.name == opts[:name]} if opts[:name]
+    return array_of_products
   end
 
   def update(opts = {})
