@@ -63,5 +63,13 @@ class Udacidata
     array_of_products = all.select { |product| product.brand == opts[:brand]}
   end
 
+  def update(opts = {})
+    @brand = opts[:brand] if opts[:brand]
+    @price = opts[:price] if opts[:price]
+    Product.destroy(self.id)
+    Product.create(id: self.id, brand: self.brand, name: self.name, price: self.price)
+    return self
+  end
+
   create_find_by_methods
 end
