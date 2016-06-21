@@ -1,4 +1,6 @@
 module Analyzable
+  @@attrs = [:brand, :name]
+
   def average_price(array_of_products)# Your code goes here!
   	price_sum = 0
   	array_of_products.each { |product| price_sum += product.price}
@@ -6,32 +8,28 @@ module Analyzable
   	return exact_average.round(2)
   end
 
-  def count_by_brand(array_of_products)
-  	brands = []
-  	array_of_products.each { |product| brands.push(product.brand) }
-  	brands.uniq!
-  	by_brand_hash = {}
-  	brands.each do |brand|
-  	  products_in_brand = array_of_products.select { |product| product.brand == brand }
-  	  n_in_brand = products_in_brand.length
-  	  by_brand_hash.merge!(brand => n_in_brand)
-  	end
-  	return by_brand_hash
+  def self.create_count_by_methods
+    @@attrs.each do |attr|
+      count_by_method = %Q{
+        def count_by_#{attr}(array_of_products)
+          attrs_values = []
+          array_of_products.each { |product| attrs_values.push(product.#{attr}) }
+          attrs_values.uniq!
+          by_attr_hash = {}
+          attrs_values.each do |value|
+            products_with_value = array_of_products.select { |product| product.#{attr} == value }
+            n_with_value = products_with_value.length
+            by_attr_hash.merge!(value => n_with_value)
+          end
+          return by_attr_hash
+        end
+        }
+      module_eval(count_by_method)
+    end
   end
 
-  def count_by_name(array_of_products)
-  	names = []
-  	array_of_products.each { |product| names.push(product.name) }
-  	names.uniq!
-  	by_name_hash = {}
-  	names.each do |name|
-  	  products_in_name = array_of_products.select { |product| product.name == name }
-  	  n_in_name = products_in_name.length
-  	  by_name_hash.merge!(name => n_in_name)
-  	end
-  	return by_name_hash
-  end
- 
+  create_count_by_methods
+  
   def print_report(array_of_products)
   	report = ["Inventory by Brand"]
     brands_hash = count_by_brand(array_of_products)
