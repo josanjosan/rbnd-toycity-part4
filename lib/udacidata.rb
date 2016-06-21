@@ -34,7 +34,11 @@ class Udacidata
 
   def self.find(id)
     found = all.select { |product| product.id == id }
-    return found.first
+    if found.first != nil
+      return found.first
+    else
+      raise ProductNotFoundError, "No created product matches id '#{id}'"
+    end
   end
 
   def self.destroy(id)
