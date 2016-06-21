@@ -3,7 +3,7 @@ require_relative 'errors'
 require 'csv'
 
 class Udacidata
-  @@data_path = "../data/data.csv"
+  @@data_path = File.dirname(__FILE__) + "/../data/data.csv"
   @@attrs = [:brand, :name]
   
   def self.create(opts = {})
